@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#080b10">
+
+    <title>YATB</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <button class="logo" onclick="navigate('home')">
+
+            <span class="logo-icon">🦅</span>
+
+            <span>
+                <strong>YATB</strong>
+                <small>You Are The Best</small>
+            </span>
+
+        </button>
+
+        <div class="stats">
+            <span>🔥 <b id="streak">1</b></span>
+            <span>⚡ <b id="xp">0</b> XP</span>
+        </div>
+
+    </header>
+
+
+    <!-- ================= HOME ================= -->
+
+    <section id="page-home" class="page active">
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    YOUR ENGLISH JOURNEY
+                </p>
+
+                <h1>
+                    Become<br>
+                    <span>unstoppable.</span>
+                </h1>
+
+                <p class="description">
+                    Build powerful vocabulary,
+                    improve your English and level up
+                    every day.
+                </p>
+
+                <button class="primary-btn"
+                        onclick="navigate('learn')">
+                    Start Learning →
+                </button>
+
+            </div>
+
+            <div class="hawk">
+                🦅
+            </div>
+
+        </div>
+
+
+        <!-- LEVEL -->
+
+        <div class="level-card">
+
+            <div class="level-row">
+
+                <strong>
+                    Level <span id="level">1</span>
+                </strong>
+
+                <span>
+                    <span id="level-xp">0</span> / 100 XP
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <div id="progress"
+                     class="progress-fill">
+                </div>
+            </div>
+
+            <small>
+                Keep learning to reach the next level.
+            </small>
+
+        </div>
+
+
+        <!-- CARDS -->
+
+        <div class="cards">
+
+            <button class="card"
+                    onclick="navigate('learn')">
+
+                <span class="card-icon">📚</span>
+
+                <strong>Learn</strong>
+
+                <small>
+                    Advanced vocabulary
+                </small>
+
+            </button>
+
+
+            <button class="card"
+                    onclick="navigate('quiz')">
+
+                <span class="card-icon">🧠</span>
+
+                <strong>Quiz</strong>
+
+                <small>
+                    Test your knowledge
+                </small>
+
+            </button>
+
+
+            <button class="card"
+                    onclick="navigate('translator')">
+
+                <span class="card-icon">🌍</span>
+
+                <strong>Translator</strong>
+
+                <small>
+                    Translate anything
+                </small>
+
+            </button>
+
+
+            <button class="card"
+                    onclick="navigate('vocabulary')">
+
+                <span class="card-icon">⭐</span>
+
+                <strong>My Vocabulary</strong>
+
+                <small>
+                    Your saved words
+                </small>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= LEARN ================= -->
+
+    <section id="page-learn" class="page">
+
+        <div class="page-title">
+
+            <div>
+                <p class="eyebrow">BUILD YOUR VOCABULARY</p>
+                <h2>Learn</h2>
+            </div>
+
+            <button class="back-btn"
+                    onclick="navigate('home')">
+                ← Home
+            </button>
+
+        </div>
+
+
+        <div class="learning-card">
+
+            <div class="word-counter"
+                 id="word-counter">
+                1 / 45
+            </div>
+
+            <div class="big-word"
+                 id="word">
+                profound
+            </div>
+
+            <div class="word-meaning"
+                 id="meaning">
+                Very deep or having a strong effect.
+            </div>
+
+            <div class="word-example"
+                 id="example">
+                "The experience had a profound impact on her."
+            </div>
+
+            <div class="word-buttons">
+
+                <button class="secondary-btn"
+                        onclick="saveCurrentWord()">
+                    ☆ Save
+                </button>
+
+                <button class="primary-btn"
+                        onclick="learnCurrentWord()">
+                    I know it +5 XP
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button class="wide-btn"
+                onclick="nextWord()">
+            Next word →
+        </button>
+
+    </section>
+
+
+
+    <!-- ================= QUIZ ================= -->
+
+    <section id="page-quiz" class="page">
+
+        <div class="page-title">
+
+            <div>
+                <p class="eyebrow">TEST YOUR ENGLISH</p>
+                <h2>Quiz</h2>
+            </div>
+
+            <button class="back-btn"
+                    onclick="navigate('home')">
+                ← Home
+            </button>
+
+        </div>
+
+
+        <div class="quiz-card">
+
+            <div class="quiz-info">
+
+                <span id="question-number">
+                    Question 1 / 8
+                </span>
+
+                <span>
+                    +10 XP
+                </span>
+
+            </div>
+
+
+            <h3 id="question">
+                Loading question...
+            </h3>
+
+
+            <div id="answers"
+                 class="answers">
+            </div>
+
+
+            <div id="feedback"
+                 class="feedback">
+            </div>
+
+
+            <button id="next-question"
+                    class="wide-btn"
+                    onclick="nextQuestion()"
+                    style="display:none">
+
+                Next question →
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= TRANSLATOR ================= -->
+
+    <section id="page-translator" class="page">
+
+        <div class="page-title">
+
+            <div>
+                <p class="eyebrow">LEARN FROM REAL LANGUAGE</p>
+                <h2>Translator</h2>
+            </div>
+
+            <button class="back-btn"
+                    onclick="navigate('home')">
+                ← Home
+            </button>
+
+        </div>
+
+
+        <div class="translator-card">
+
+            <div class="languages">
+
+                <select id="source-language">
+
+                    <option value="auto">
+                        Auto
+                    </option>
+
+                    <option value="en">
+                        English
+                    </option>
+
+                    <option value="ru">
+                        Russian
+                    </option>
+
+                    <option value="ky">
+                        Kyrgyz
+                    </option>
+
+                </select>
+
+
+                <button class="swap-btn"
+                        onclick="swapLanguages()">
+                    ⇄
+                </button>
+
+
+                <select id="target-language">
+
+                    <option value="en">
+                        English
+                    </option>
+
+                    <option value="ru">
+                        Russian
+                    </option>
+
+                    <option value="ky">
+                        Kyrgyz
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <textarea
+                id="translate-input"
+                placeholder="Type any word or sentence..."
+            ></textarea>
+
+
+            <button class="primary-btn full"
+                    onclick="translateText()">
+                Translate →
+            </button>
+
+
+            <div class="translation">
+
+                <span class="translation-label">
+                    TRANSLATION
+                </span>
+
+                <p id="translation">
+                    Your translation will appear here.
+                </p>
+
+                <button class="save-btn"
+                        onclick="saveTranslation()">
+                    ☆ Save translation
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= VOCABULARY ================= -->
+
+    <section id="page-vocabulary" class="page">
+
+        <div class="page-title">
+
+            <div>
+                <p class="eyebrow">YOUR COLLECTION</p>
+                <h2>My Vocabulary</h2>
+            </div>
+
+            <button class="back-btn"
+                    onclick="navigate('home')">
+                ← Home
+            </button>
+
+        </div>
+
+
+        <div id="saved-list"
+             class="saved-list">
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= BOTTOM NAV ================= -->
+
+    <nav class="bottom-nav">
+
+        <button data-page="home"
+                onclick="navigate('home')">
+
+            <span>⌂</span>
+            <small>Home</small>
+
+        </button>
+
+
+        <button data-page="learn"
+                onclick="navigate('learn')">
+
+            <span>📚</span>
+            <small>Learn</small>
+
+        </button>
+
+
+        <button data-page="quiz"
+                onclick="navigate('quiz')">
+
+            <span>🧠</span>
+            <small>Quiz</small>
+
+        </button>
+
+
+        <button data-page="translator"
+                onclick="navigate('translator')">
+
+            <span>🌍</span>
+            <small>Translate</small>
+
+        </button>
+
+
+        <button data-page="vocabulary"
+                onclick="navigate('vocabulary')">
+
+            <span>⭐</span>
+            <small>Words</small>
+
+        </button>
+
+    </nav>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+</html>
